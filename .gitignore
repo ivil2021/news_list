@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+news_list_comments.txt
+test.txt
 
 # testing
 /coverage
