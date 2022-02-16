@@ -4,10 +4,8 @@ import NewsList from './pages/NewsList';
 function App() {
   return (
     <div>
-      <div className="App">
-        <h1>my news list</h1>
-      </div>
-
+      <div className="App" />
+      <br />
       <NewsList />
     </div>
   );

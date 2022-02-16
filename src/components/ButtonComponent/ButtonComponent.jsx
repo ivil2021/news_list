@@ -1,12 +1,12 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-function ButtonComponent() {
+// eslint-disable-next-line react/prop-types
+function ButtonComponent({ text }) {
   return (
     <div>
-      <h1>ButtonComponent content</h1>
       <Button variant="contained" color="primary">
-        Add NewsItem
+        Add NewsCard
       </Button>
     </div>
   );
