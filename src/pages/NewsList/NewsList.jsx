@@ -21,8 +21,6 @@ function NewsList() {
 
   const fakeTitle = fake.map((item) => <li>{item.title}</li>);
 
-  // console.log(`fakeTitle: ${fakeTitle}`);
-
   return (
     <div>
       <ButtonComponent text="Добавить статью" />

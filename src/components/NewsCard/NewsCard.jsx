@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 // eslint-disable-next-line no-undef
+// TODO: will be used soon. Need to understand how to work with date.
 // const date = new Date();
 // console.log(date.getMonth());
 // alert( now );
