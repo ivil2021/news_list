@@ -6,11 +6,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-// eslint-disable-next-line no-undef
-// TODO: will be used soon. Need to understand how to work with date.
-// const date = new Date();
-// console.log(date.getMonth());
-// alert( now );
+const actualDate = new Date();
+const moment = require('moment');
+
+const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY');
 
 const useStyles = makeStyles({
   root: {
@@ -56,7 +55,7 @@ function NewsCard() {
       <CardActions>
         <Button size="large" variant="contained" color="primary">Read more…</Button>
       </CardActions>
-      2022-02-10T23:55:47.534Z
+      {actualDateFormatted}
     </Card>
   );
 }

@@ -3,8 +3,9 @@ import NewsList from './pages/NewsList';
 
 function App() {
   return (
-    <div>
-      <div className="App" />
+    <div className="App">
+      {/* <div className="App" /> */}
+      {/* <div className="App" /> */}
       <br />
       <NewsList />
     </div>

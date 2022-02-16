@@ -6,7 +6,7 @@ function ButtonComponent({ text }) {
   return (
     <div>
       <Button variant="contained" color="primary">
-        Add NewsCard
+        {text}
       </Button>
     </div>
   );

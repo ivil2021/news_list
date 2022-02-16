@@ -1,0 +1,21 @@
+.modal-window {
+  display: flex;
+  /* justify-content: center; */
+  width: 50vw;
+  height: 50vh;
+  background: green;
+}
+
+.model-content {
+  display: flex;
+}
+
+.modal-window-header {
+  display: flex;
+  justify-content: space-evenly;
+  /* width: 100%; */
+}
+
+.news-title {
+  display: block;
+}
