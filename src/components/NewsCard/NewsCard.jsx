@@ -29,14 +29,14 @@ const useStyles = makeStyles({
   },
 });
 
-function NewsCard() {
+function NewsCard({ title, text }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5" component="h2">
-          Principal Web Analyst
+          {title}
         </Typography>
         <br />
         <CardActions>
@@ -44,12 +44,7 @@ function NewsCard() {
         </CardActions>
         <br />
         <Typography variant="body2" component="p">
-          Nostrum minima et ab eos sit architecto commodi est.
-          Nobis corporis corporis doloribus reprehenderit dolore.
-          Dolorum expedita voluptatem. Quo ea vero a tempora repellendus iusto.
-          \n \rEa itaque aut velit veniam ipsa et nihil. Est rerum adipisci
-          corporis rerum est nostrum at. Corporis consectetur quis.
-          Qui maiores dignissimos.\n \rUt sit in. Inventore aut nihil. Minima et et eaque dolorum.
+          {text}
         </Typography>
       </CardContent>
       <CardActions>

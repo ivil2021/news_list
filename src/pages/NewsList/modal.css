@@ -1,21 +1,36 @@
-.modal-window {
-  display: flex;
+.App {
+  /* display: flex; */
   /* justify-content: center; */
-  width: 50vw;
-  height: 50vh;
-  background: green;
+  /* align-items: center; */
 }
 
-.model-content {
+.modal-window {
+  /* display: flex;
+  justify-content: center; */
+  /* width: 50vw;
+  height: 50vh; */
+  background: lightblue;
+  width: 500px;
+  height: 300px;
+  border-radius: 20px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -150px;
+}
+
+.modal-container {
+  padding: 20px;
+}
+
+.modal-header {
   display: flex;
+  justify-content: space-between;
 }
 
-.modal-window-header {
+.modal-footer {
   display: flex;
-  justify-content: space-evenly;
-  /* width: 100%; */
-}
-
-.news-title {
-  display: block;
+  justify-content: flex-end;
 }
