@@ -1,14 +1,4 @@
-.App {
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-}
-
 .modal-window {
-  /* display: flex;
-  justify-content: center; */
-  /* width: 50vw;
-  height: 50vh; */
   background: lightblue;
   width: 500px;
   height: 300px;
@@ -28,9 +18,10 @@
 .modal-header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
