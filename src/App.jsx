@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NewsList from './pages/NewsList';
 
 const fake = [
@@ -40,10 +40,22 @@ const fake = [
   },
 ];
 
+const actualDate = new Date();
+const moment = require('moment');
+
+const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY');
+
 function App() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="App">
-      <NewsList list={fake} />
+      <NewsList
+        list={fake}
+        date={actualDateFormatted}
+        open={open}
+        setOpen={setOpen}
+      />
     </div>
   );
 }

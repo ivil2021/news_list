@@ -1,37 +1,26 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import './newsCard.css';
+
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import './newsCard.css';
-
-const actualDate = new Date();
-const moment = require('moment');
-
-const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY');
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 150,
     maxWidth: 500,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
+    margin: 10,
+    borderRadius: 20,
   },
 });
 
-function NewsCard({ title, text }) {
+function NewsCard({ title, text, date }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -47,22 +36,35 @@ function NewsCard({ title, text }) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography>
+
+        <div className="card-header">
+          <Typography variant="h5" component="h2">
+            {title}
+          </Typography>
+          <br />
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<DeleteIcon />}
+          >
+            Delete
+          </Button>
+        </div>
+
         <br />
-        <CardActions>
-          <Button size="large" variant="contained" color="primary">Delete</Button>
-        </CardActions>
-        <br />
+
         <Typography variant="body2" component="p">
           {text.substring(0, 200)}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="large" variant="contained" color="primary" onClick={handleOpen}>Read more…</Button>
-      </CardActions>
-      {actualDateFormatted}
+
+      <div className="card-footer">
+        <CardActions>
+          <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Read more…</Button>
+        </CardActions>
+        <div>{date}</div>
+      </div>
 
       <Modal
         open={open}
@@ -75,9 +77,9 @@ function NewsCard({ title, text }) {
 
             <div className="card-modal-header">
               <h4>{title}</h4>
-              <button type="button" onClick={handleClose}>
-                Close
-              </button>
+              <CardActions>
+                <Button size="small" variant="contained" color="primary" onClick={handleClose}>Close</Button>
+              </CardActions>
             </div>
 
             <div className="card-modal-content">
@@ -85,7 +87,7 @@ function NewsCard({ title, text }) {
             </div>
 
             <div className="card-modal-footer">
-              <p>Date</p>
+              <div>{date}</div>
             </div>
 
           </div>
@@ -98,3 +100,15 @@ function NewsCard({ title, text }) {
 }
 
 export default NewsCard;
+
+NewsCard.propTypes = {
+  title: PropTypes.string,
+  text: PropTypes.string,
+  date: PropTypes.string,
+};
+
+NewsCard.defaultProps = {
+  title: PropTypes.string,
+  text: PropTypes.string,
+  date: PropTypes.string,
+};
