@@ -1,34 +1,89 @@
 import React from 'react';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
+import PropTypes from 'prop-types';
+import './newsList.css';
+
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import Modal from '@material-ui/core/Modal';
+
 import NewsCard from '../../components/NewsCard';
 import PaginationComponent from '../../components/PaginationComponent';
 
-function NewsList() {
-  const fake = [
-    {
-      createdAt: '2022-02-10T23:55:47.534Z',
-      title: 'Principal Web Analyst',
-      text: 'Nostrum minima et ab eos sit architecto commodi est. Nobis corporis corporis doloribus reprehenderit dolore. Dolorum expedita voluptatem. Quo ea vero a tempora repellendus iusto.\n \rEa itaque aut velit veniam ipsa et nihil. Est rerum adipisci corporis rerum est nostrum at. Corporis consectetur quis. Qui maiores dignissimos.\n \rUt sit in. Inventore aut nihil. Minima et et eaque dolorum.',
-      id: '1',
-    },
-    {
-      createdAt: '2022-02-11T00:11:28.220Z',
-      title: 'Legacy Optimization Specialist',
-      text: 'Veniam sit modi iste magnam rerum ex. Repudiandae cupiditate excepturi ipsam eligendi recusandae dolorem vel numquam eius. Nostrum quod et a tempora nobis. Ad et molestias soluta pariatur repellat reprehenderit. Optio ea occaecati suscipit autem sapiente ut at ut qui.\n \rAut tempore nesciunt illum sed sint totam alias quia beatae. Perspiciatis repudiandae odio ut qui magni non est et quo. In culpa laudantium non aliquam assumenda eum reprehenderit perferendis. Pariatur inventore explicabo distinctio optio est ad commodi ullam repudiandae. Ut maiores dolores a dolorum incidunt occaecati. Eum soluta ex distinctio quia inventore aperiam.\n \rCulpa dolorem qui. Expedita ut optio earum. Dolore est quo in deleniti voluptas. Iste ut sequi sapiente quia non omnis. Fuga eos et magni sunt ratione quae et et. Id nesciunt tenetur recusandae enim tempora recusandae suscipit.',
-      id: '2',
-    },
-  ];
+function NewsList({
+  list, date, open, setOpen,
+}) {
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
-  const fakeTitle = fake.map((item) => <li>{item.title}</li>);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>
-      <ButtonComponent text="Добавить статью" />
-      <br />
-      <NewsCard />
+      <CardActions>
+        <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Add news</Button>
+      </CardActions>
+      {list.map((item) => (
+        <NewsCard
+          title={item.title}
+          text={item.text}
+          key={item.id}
+          date={date}
+        />
+      ))}
       <PaginationComponent />
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        title={list[0].title}
+      >
+        <div className="modal-window">
+          <div className="modal-container">
+
+            <div className="modal-header">
+              <input type="text" size={20} />
+
+              <CardActions>
+                <Button size="small" variant="contained" color="primary" onClick={handleClose}>Close</Button>
+              </CardActions>
+            </div>
+
+            <div className="modal-content">
+              <textarea name="" id="" cols="60" rows="10" />
+            </div>
+
+            <div className="modal-footer">
+              <CardActions>
+                <Button size="small" variant="contained" color="primary">Save</Button>
+              </CardActions>
+            </div>
+
+          </div>
+
+          <div className="news-text" />
+        </div>
+      </Modal>
     </div>
   );
 }
 
 export default NewsList;
+
+NewsList.propTypes = {
+  list: PropTypes.arrayOf(),
+  date: PropTypes.string,
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+};
+
+NewsList.defaultProps = {
+  list: PropTypes.arrayOf(),
+  date: PropTypes.string,
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+};

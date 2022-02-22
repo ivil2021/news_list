@@ -6,6 +6,7 @@
 .pnp.js
 news_list_comments.txt
 test.txt
+pull_requests_refactor.txt
 
 # testing
 /coverage
