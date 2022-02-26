@@ -13,10 +13,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 150,
-    maxWidth: 500,
+    minWidth: 200,
+    maxWidth: 400,
     margin: 10,
     borderRadius: 20,
+    border: '3px solid green',
   },
 });
 

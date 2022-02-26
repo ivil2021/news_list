@@ -25,14 +25,16 @@ function NewsList({
       <CardActions>
         <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Add news</Button>
       </CardActions>
-      {list.map((item) => (
-        <NewsCard
-          title={item.title}
-          text={item.text}
-          key={item.id}
-          date={date}
-        />
-      ))}
+      <div className="news-container">
+        {list.map((item) => (
+          <NewsCard
+            title={item.title}
+            text={item.text}
+            key={item.id}
+            date={date}
+          />
+        ))}
+      </div>
       <PaginationComponent />
 
       <Modal
