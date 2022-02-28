@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import NewsList from './pages/NewsList';
+import store from './store/index';
+
+console.log('11111111111111111111111111111111');
+console.log(store.getState());
+console.log('2222222222222222222222222222222');
 
 const fake = [
   {
@@ -40,6 +45,9 @@ const fake = [
   },
 ];
 
+const fake2 = store.getState();
+console.log(store.getState());
+
 const actualDate = new Date();
 const moment = require('moment');
 
@@ -48,10 +56,12 @@ const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY')
 function App() {
   const [open, setOpen] = useState(false);
 
+  // store.dispatch({ type: 'ADD_NEWS' });
+
   return (
     <div className="App">
       <NewsList
-        list={fake}
+        list={store.getState()}
         date={actualDateFormatted}
         open={open}
         setOpen={setOpen}
