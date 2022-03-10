@@ -11,3 +11,7 @@ export function getNewsSuccess(payload) {
 export function getNewsError() {
   return { type: actionTypes.GET_NEWS_ERROR };
 }
+
+export function getData() {
+  return { type: 'DATA_REQUESTED' };
+}
