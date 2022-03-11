@@ -1,7 +1,7 @@
 import actionTypes from '../actionTypes';
 
-export function getNewsRequest() {
-  return { type: actionTypes.GET_NEWS_REQUEST };
+export function getNewsRequest(page) {
+  return { type: actionTypes.GET_NEWS_REQUEST, payload: page };
 }
 
 export function getNewsSuccess(payload) {

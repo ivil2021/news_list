@@ -1,16 +1,11 @@
 import actionTypes from '../actionTypes';
 
-import fakeNews from '../../utils/constants';
-
-import { getNewsRequest } from '../actions';
-
 const INITIAL_STATE = {
-  newsList: fakeNews,
+  newsList: [],
   isLoading: false,
 };
 
-// const newsReducer = (state = INITIAL_STATE, action = {}) => {
-const newsReducer = (state = INITIAL_STATE, action = getNewsRequest) => {
+const newsReducer = (state = INITIAL_STATE, action = {}) => {
   switch (action.type) {
     case actionTypes.GET_NEWS_REQUEST:
       return {
@@ -21,7 +16,7 @@ const newsReducer = (state = INITIAL_STATE, action = getNewsRequest) => {
     case actionTypes.GET_NEWS_SUCCESS:
       return {
         ...state,
-        newsList: action.payload,
+        newsList: action.payload.items,
       };
 
     case actionTypes.GET_NEWS_ERROR:
