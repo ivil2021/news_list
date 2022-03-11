@@ -43,7 +43,6 @@ function NewsList() {
     dispatch(getNewsRequest());
   }, []);
 
-  console.log('=========================', list);
   return (
     <div>
       <CardActions>

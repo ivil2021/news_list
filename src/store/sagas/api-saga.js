@@ -1,4 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
+
 import getNewsListRequest from '../getNewsListRequest';
 import { getNewsSuccess } from '../actions';
 
