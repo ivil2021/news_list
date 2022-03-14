@@ -1,7 +1,10 @@
 import actionTypes from '../actionTypes';
 
+// TODO: need to find out should I use limit here
+// or it will be better to take it fron .env file
+// page, limit
 export function getNewsRequest(page) {
-  return { type: actionTypes.GET_NEWS_REQUEST, payload: page };
+  return { type: actionTypes.GET_NEWS_REQUEST, payload: { page } };
 }
 
 export function getNewsSuccess(payload) {

@@ -5,43 +5,46 @@ import * as moment from 'moment';
 import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import Modal from '@material-ui/core/Modal';
+import Pagination from '@material-ui/lab/Pagination';
 
 import NewsCard from '../../components/NewsCard';
-import PaginationComponent from '../../components/PaginationComponent';
 import { getNewsRequest } from '../../store/actions';
 import './newsList.css';
 
 const actualDate = new Date();
 
+const PAGES_LIMIT = process.env.REACT_APP_PAGES_LIMIT;
+
 function NewsList() {
   const [open, setOpen] = useState(false);
 
-  const list = useSelector((state) => state.news.newsList);
-
   const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY');
 
-  // TODO: will be used for pagination
-  // const [currentPage, setCurrentPage] = useState(1);
+  // take the certain part of state
+  const list = useSelector((state) => state.news.newsList);
+
+  // take the certain amount of news from state
+  const newsAmount = useSelector((state) => state.news.newsAmount);
+
+  // totalPages calculation based on fetced data and data from .env file
+  const totalPages = Math.ceil(newsAmount / PAGES_LIMIT);
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   // TODO: will be used for modal window
   // const handleOpen = () => {
   //   setOpen(true);
   // };
 
-  // TODO: will be used for pagination
-  // const changePage= (event, page) => {
-  //   setCurrentPage(page);
+  // const handleClose = () => {
+  //   setOpen(false);
   // };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getNewsRequest());
-  }, []);
+    dispatch(getNewsRequest(currentPage));
+  }, [currentPage]);
 
   return (
     <div>
@@ -58,7 +61,14 @@ function NewsList() {
           />
         ))}
       </div>
-      <PaginationComponent />
+      <Pagination
+        count={totalPages}
+        variant="outlined"
+        shape="rounded"
+        color="secondary"
+        onChange={(event, page) => setCurrentPage(page)}
+        page={currentPage}
+      />
 
       <Modal
         open={open}
