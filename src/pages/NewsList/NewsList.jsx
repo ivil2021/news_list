@@ -13,7 +13,7 @@ import './newsList.css';
 
 const actualDate = new Date();
 
-const PAGES_LIMIT = process.env.REACT_APP_PAGES_LIMIT;
+const LIMIT = 3;
 
 function NewsList() {
   const [open, setOpen] = useState(false);
@@ -27,29 +27,33 @@ function NewsList() {
   const newsAmount = useSelector((state) => state.news.newsAmount);
 
   // totalPages calculation based on fetced data and data from .env file
-  const totalPages = Math.ceil(newsAmount / PAGES_LIMIT);
+  const totalPages = Math.ceil(newsAmount / LIMIT);
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  // TODO: will be used for modal window
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
+  const handlePagination = (event, page) => {
+    setCurrentPage(page);
+  };
 
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
+  // TODO: will be used for modal window
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getNewsRequest(currentPage));
+    dispatch(getNewsRequest({ page: currentPage, limit: LIMIT }));
   }, [currentPage]);
 
   return (
     <div>
       <CardActions>
-        <Button size="small" variant="contained" color="primary" onClick={() => dispatch(getNewsRequest())}>Add news</Button>
+        <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Add news</Button>
       </CardActions>
       <div className="news-container">
         {list.length && list.map((item) => (
@@ -66,7 +70,7 @@ function NewsList() {
         variant="outlined"
         shape="rounded"
         color="secondary"
-        onChange={(event, page) => setCurrentPage(page)}
+        onChange={handlePagination}
         page={currentPage}
       />
 
