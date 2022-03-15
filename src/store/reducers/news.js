@@ -3,6 +3,7 @@ import actionTypes from '../actionTypes';
 const INITIAL_STATE = {
   newsList: [],
   isLoading: false,
+  newsAmount: 0,
 };
 
 const newsReducer = (state = INITIAL_STATE, action = {}) => {
@@ -17,6 +18,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         newsList: action.payload.items,
+        newsAmount: action.payload.count,
       };
 
     case actionTypes.GET_NEWS_ERROR:
