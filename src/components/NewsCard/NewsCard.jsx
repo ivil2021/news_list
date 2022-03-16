@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,7 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 
 import './newsCard.css';
+import { getNewsRecordRequest } from '../../store/actions';
 
 const useStyles = makeStyles({
   root: {
@@ -22,17 +24,27 @@ const useStyles = makeStyles({
   },
 });
 
-function NewsCard({ title, text, date }) {
+function NewsCard({
+  title, text, date, id,
+}) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // TODO: will be used for modal window
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
+  // TODO: will be used for modal window
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const dispatch = useDispatch();
+
+  const handleOpen = () => {
+    dispatch(getNewsRecordRequest(id));
   };
 
   return (
@@ -107,10 +119,12 @@ NewsCard.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
   date: PropTypes.string,
+  id: PropTypes.string,
 };
 
 NewsCard.defaultProps = {
   title: PropTypes.string,
   text: PropTypes.string,
   date: PropTypes.string,
+  id: PropTypes.string,
 };
