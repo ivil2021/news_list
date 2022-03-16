@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   newsList: [],
   isLoading: false,
   newsAmount: 0,
+  selectedNews: {},
 };
 
 const newsReducer = (state = INITIAL_STATE, action = {}) => {
@@ -38,7 +39,10 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         // TODO: maybe I will need it future
         // news: action.payload,
-        newsList: [action.payload],
+        // TODO: need to find out which option is better to use
+        selectedNews: action.payload,
+        // selectedNews: state.selectedNews.concat(action.payload),
+        // selectedNews: [...state.selectedNews, action.payload],
       };
 
     case actionTypes.GET_NEWS_RECORD_ERROR:
