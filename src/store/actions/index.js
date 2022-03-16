@@ -14,10 +14,14 @@ export function getNewsError() {
   return { type: actionTypes.GET_NEWS_ERROR };
 }
 
-// export function getData() {
-//   return { type: 'DATA_REQUESTED' };
-// }
+export function getNewsRecordRequest(payload) {
+  return { type: actionTypes.GET_NEWS_RECORD_REQUEST, payload };
+}
 
-// function getNewsRecordRequest(payload) {
-//   {type:... payload} // =====> payload ===  id записи на которую кликнули
-// }
+export function getNewsRecordSuccess(payload) {
+  return { type: actionTypes.GET_NEWS_RECORD_SUCCESS, payload };
+}
+
+export function getNewsRecordError() {
+  return { type: actionTypes.GET_NEWS_RECORD_ERROR };
+}

@@ -13,7 +13,7 @@ import './newsList.css';
 
 const actualDate = new Date();
 
-const LIMIT = 3;
+const LIMIT = 2;
 
 function NewsList() {
   const [open, setOpen] = useState(false);
@@ -23,10 +23,13 @@ function NewsList() {
   // take the certain part of state
   const list = useSelector((state) => state.news.newsList);
 
+  // TODO: maybe I will need it future
+  // const newsCurrent = useSelector((state) => state.news.news);
+
   // take the certain amount of news from state
   const newsAmount = useSelector((state) => state.news.newsAmount);
 
-  // totalPages calculation based on fetced data and data from .env file
+  // totalPages calculation based on fetced data const LIMIT
   const totalPages = Math.ceil(newsAmount / LIMIT);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,6 +43,7 @@ function NewsList() {
     setOpen(true);
   };
 
+  // TODO: will be used for modal window
   const handleClose = () => {
     setOpen(false);
   };
@@ -61,9 +65,31 @@ function NewsList() {
             title={item.title}
             text={item.text}
             key={item.id}
+            id={item.id}
             date={actualDateFormatted}
           />
         ))}
+        {/* // TODO: maybe I will need it future */}
+        {/* {newsCurrent && (
+        <div className="news-current">
+          <NewsCard
+            title={newsCurrent.title}
+            text={newsCurrent.text}
+            key={newsCurrent.id}
+            id={newsCurrent.id}
+            date={actualDateFormatted}
+          />
+        </div>
+        )}
+        {list.length && list.map((item) => (
+          <NewsCard
+            title={item.title}
+            text={item.text}
+            key={item.id}
+            id={item.id}
+            date={actualDateFormatted}
+          />
+        ))} */}
       </div>
       <Pagination
         count={totalPages}

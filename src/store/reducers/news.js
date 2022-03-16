@@ -27,6 +27,26 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         isLoading: false,
       };
 
+    case actionTypes.GET_NEWS_RECORD_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.GET_NEWS_RECORD_SUCCESS:
+      return {
+        ...state,
+        // TODO: maybe I will need it future
+        // news: action.payload,
+        newsList: [action.payload],
+      };
+
+    case actionTypes.GET_NEWS_RECORD_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
     default:
       return state;
   }
