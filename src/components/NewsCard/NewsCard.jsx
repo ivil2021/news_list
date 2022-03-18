@@ -36,7 +36,6 @@ function NewsCard({
   //   setOpen(true);
   // };
 
-  // TODO: will be used for modal window
   const handleClose = () => {
     setOpen(false);
   };
