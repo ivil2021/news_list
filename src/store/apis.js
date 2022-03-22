@@ -26,15 +26,18 @@ async function addNewsRecordRequest(payload) {
   return data;
 }
 
-export { getNewsListRequest, getNewsRecordRequest, addNewsRecordRequest };
+// --- DELETE NEWS RECORD BY ID --- //
+async function deleteNewsRecordRequest(id) {
+  const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
+  await fetch(URL, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+}
+// --- DELETE NEWS RECORD BY ID --- //
 
-// TODO: will be used for deleting news
-// function* deleteNewsRecordSaga(action) {
-//   try {
-//     yield put(deleteNewsRecordRequest(action.payload)); // post request with title, text and date
-//     yield put(deleteNewsRecordSuccess());
-//     const testPayload = yield put(getNewsListRequest);
-//   } catch (error) {
-//     yield put(deleteNewsRecordError());
-//   }
-// }
+export {
+  getNewsListRequest, getNewsRecordRequest, addNewsRecordRequest, deleteNewsRecordRequest,
+};

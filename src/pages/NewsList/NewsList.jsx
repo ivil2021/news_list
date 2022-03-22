@@ -71,6 +71,8 @@ function NewsList() {
             key={item.id}
             id={item.id}
             date={actualDateFormatted}
+            currentPage={currentPage}
+            limit={LIMIT}
           />
         ))}
       </div>
@@ -87,7 +89,7 @@ function NewsList() {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        title="Title" // TODO: change to real data
+        // title="Title" // TODO: change to real data
       >
         <div className="modal-window">
           <div className="modal-container">

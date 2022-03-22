@@ -12,7 +12,7 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 
 import './newsCard.css';
-import { getNewsRecordRequest } from '../../store/actions';
+import { getNewsRecordRequest, deleteNewsRecordRequest } from '../../store/actions';
 
 const useStyles = makeStyles({
   root: {
@@ -25,26 +25,27 @@ const useStyles = makeStyles({
 });
 
 function NewsCard({
-  title, text, date, id,
+  title, text, date, id, currentPage, limit,
 }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
 
-  // TODO: will be used for modal window
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const dispatch = useDispatch();
 
-  const handleOpen = () => {
+  const handleReadMore = () => {
     dispatch(getNewsRecordRequest(id));
+    handleOpen(true);
   };
+
+  // --- DELETE NEWS RECORD BY ID --- //
+  const handleDelete = () => {
+    dispatch(deleteNewsRecordRequest({ page: currentPage, limit, id }));
+  };
+  // --- DELETE NEWS RECORD BY ID --- //
 
   return (
     <Card className={classes.root}>
@@ -60,6 +61,7 @@ function NewsCard({
             color="secondary"
             className={classes.button}
             startIcon={<DeleteIcon />}
+            onClick={handleDelete}
           >
             Delete
           </Button>
@@ -74,7 +76,7 @@ function NewsCard({
 
       <div className="card-footer">
         <CardActions>
-          <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Read more…</Button>
+          <Button size="small" variant="contained" color="primary" onClick={handleReadMore}>Read more…</Button>
         </CardActions>
         <div>{date}</div>
       </div>
@@ -119,6 +121,8 @@ NewsCard.propTypes = {
   text: PropTypes.string,
   date: PropTypes.string,
   id: PropTypes.string,
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
 };
 
 NewsCard.defaultProps = {
@@ -126,4 +130,6 @@ NewsCard.defaultProps = {
   text: PropTypes.string,
   date: PropTypes.string,
   id: PropTypes.string,
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
 };
