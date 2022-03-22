@@ -9,6 +9,7 @@ const INITIAL_STATE = {
 
 const newsReducer = (state = INITIAL_STATE, action = {}) => {
   switch (action.type) {
+    // --- GET NEWS LIST --- //
     case actionTypes.GET_NEWS_REQUEST:
       return {
         ...state,
@@ -27,7 +28,9 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         isLoading: false,
       };
+      // --- GET NEWS LIST --- //
 
+      // --- GET NEWS RECORD BY ID --- //
     case actionTypes.GET_NEWS_RECORD_REQUEST:
       return {
         ...state,
@@ -37,12 +40,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
     case actionTypes.GET_NEWS_RECORD_SUCCESS:
       return {
         ...state,
-        // TODO: maybe I will need it future
-        // news: action.payload,
-        // TODO: need to find out which option is better to use
         selectedNews: action.payload,
-        // selectedNews: state.selectedNews.concat(action.payload),
-        // selectedNews: [...state.selectedNews, action.payload],
       };
 
     case actionTypes.GET_NEWS_RECORD_ERROR:
@@ -50,6 +48,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         isLoading: false,
       };
+      // --- GET NEWS RECORD BY ID --- //
 
     default:
       return state;
