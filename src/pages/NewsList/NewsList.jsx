@@ -31,8 +31,8 @@ function NewsList() {
   }, [currentPage]);
 
   // --- ADD NEWS FROM MODAL WINDOW --- //
-  const [newsTitle, setNewsTitle] = useState('basic news title');
-  const [newsText, setNewsText] = useState('basic news text');
+  const [newsTitle, setNewsTitle] = useState('');
+  const [newsText, setNewsText] = useState('');
   const handleNewsTitle = (event) => setNewsTitle(event.target.value);
   const handleNewsText = (event) => setNewsText(event.target.value);
 
@@ -45,6 +45,19 @@ function NewsList() {
     handleClose();
   };
   // --- ADD NEWS FROM MODAL WINDOW --- //
+
+  // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    // setIsSaveButtonDisabled((newsTitle.length === 0) || (newsText.length === 0));
+    if ((newsTitle.length === 0) || (newsText.length === 0)) {
+      setIsSaveButtonDisabled(true);
+    } else {
+      setIsSaveButtonDisabled(false);
+    }
+  }, [newsTitle, newsText]);
+  // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
 
   return (
     <div>
@@ -101,7 +114,7 @@ function NewsList() {
 
             <div className="modal-footer">
               <CardActions>
-                <Button size="small" variant="contained" color="primary" onClick={handleSave}>
+                <Button size="small" variant="contained" color="primary" onClick={handleSave} disabled={isSaveButtonDisabled}>
                   Save
                 </Button>
               </CardActions>
