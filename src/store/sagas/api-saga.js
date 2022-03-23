@@ -1,28 +1,26 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import {
+  takeLatest, call, put, select,
+} from 'redux-saga/effects';
 
 import {
-  fetchNewsList,
-  fetchNewsRecord,
-  fetchNewsAdding,
-  fetchNewsDeletion,
+  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion,
 } from '../apis';
 import {
-  getNewsSuccess,
-  getNewsError,
-  getNewsRecordSuccess,
-  getNewsRecordError,
-  addNewsRecordSuccess,
-  addNewsRecordError,
-  deleteNewsRecordSuccess,
-  deleteNewsRecordError,
-  getNewsRequest,
+  getNewsSuccess, getNewsError,
+  getNewsRecordSuccess, getNewsRecordError,
+  addNewsRecordSuccess, addNewsRecordError,
+  deleteNewsRecordSuccess, deleteNewsRecordError,
+  getNewsRequest, setCurrentPage,
 } from '../actions';
 
-function* getNewsListSaga(action) {
+function* getNewsListSaga() {
   try {
+    const currentPage = yield select((state) => state.news.currentPage);
+    const limit = yield select((state) => state.news.limit);
+
     const payload = yield call(fetchNewsList, {
-      page: action.payload.page,
-      limit: action.payload.limit,
+      page: currentPage,
+      limit,
     });
     yield put(getNewsSuccess(payload));
   } catch (error) {
@@ -41,33 +39,35 @@ function* getNewsRecordSaga(action) {
 
 function* addNewsRecordSaga(action) {
   try {
-    yield call(fetchNewsAdding, action.payload); // post request with title, text and date
+    yield call(fetchNewsAdding, action.payload);
     yield put(addNewsRecordSuccess());
-    yield put(getNewsRequest(action.payload)); // forget to add ()
-    // просто запускаем процесс получения данных, данных не возвращает
+    yield put(getNewsRequest());
   } catch (error) {
-    // TODO: delete console after fixing error
-    // console.log('+++++++++++++++++++++', error);
     yield put(addNewsRecordError());
   }
 }
 
 function* deleteNewsRecordSaga(action) {
-  // TODO: delete console after finishing delete action
-  // console.log('action.payload from deleteNewsRecordSaga: ', action.payload);
   try {
+    // get amount of news on the current page from redux store
+    const newsList = yield select((state) => state.news.newsList);
+    // get total amount of news from redux store
+    const totalPages = yield select((state) => state.news.totalPages);
+
+    // fetch to delete news record to server
     yield call(fetchNewsDeletion, action.payload.id);
+
+    // if it was the last news record on the actual page,
+    // we move to the previous page
+    if (newsList.length === 1) {
+      yield put(setCurrentPage(totalPages - 1));
+    }
+
+    // inform that request was successfull (loader should be stopped)
     yield put(deleteNewsRecordSuccess());
-    // yield call(getNewsListRequest());
-    yield put(
-      getNewsRequest({
-        page: action.payload.page,
-        limit: action.payload.limit,
-      }),
-    );
+    yield put(getNewsRequest()); // request news list from server after delete operation
   } catch (error) {
-    // TODO: delete console after fixing error
-    console.log('=======================', error);
+    // inform that request wasn't successfull (loader should be stopped)
     yield put(deleteNewsRecordError());
   }
 }

@@ -25,16 +25,13 @@ const useStyles = makeStyles({
 });
 
 function NewsCard({
-  title, text, date, id, currentPage, limit,
+  title, text, date, id,
 }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
-
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const dispatch = useDispatch();
 
   const handleReadMore = () => {
     dispatch(getNewsRecordRequest(id));
@@ -43,7 +40,7 @@ function NewsCard({
 
   // --- DELETE NEWS RECORD BY ID --- //
   const handleDelete = () => {
-    dispatch(deleteNewsRecordRequest({ page: currentPage, limit, id }));
+    dispatch(deleteNewsRecordRequest({ id }));
   };
   // --- DELETE NEWS RECORD BY ID --- //
 
@@ -117,19 +114,8 @@ function NewsCard({
 export default NewsCard;
 
 NewsCard.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  date: PropTypes.string,
-  id: PropTypes.string,
-  currentPage: PropTypes.number,
-  limit: PropTypes.number,
-};
-
-NewsCard.defaultProps = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  date: PropTypes.string,
-  id: PropTypes.string,
-  currentPage: PropTypes.number,
-  limit: PropTypes.number,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 async function fetchNewsList({ page, limit }) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news?page=${page}&limit=${limit}`;
   const response = await fetch(URL);
@@ -27,7 +28,6 @@ async function fetchNewsAdding(payload) {
 }
 
 // --- DELETE NEWS RECORD BY ID --- //
-// async function deleteNewsRecordRequest(id) {
 async function fetchNewsDeletion(id) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
   await fetch(URL, {
