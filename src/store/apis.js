@@ -1,18 +1,18 @@
-async function getNewsListRequest({ page, limit }) {
+async function fetchNewsList({ page, limit }) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news?page=${page}&limit=${limit}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;
 }
 
-async function getNewsRecordRequest(id) {
+async function fetchNewsRecord(id) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;
 }
 
-async function addNewsRecordRequest(payload) {
+async function fetchNewsAdding(payload) {
   const URL = 'https://62061fb7161670001741bf36.mockapi.io/api/news';
   const response = await fetch(URL, {
     method: 'POST',
@@ -27,7 +27,8 @@ async function addNewsRecordRequest(payload) {
 }
 
 // --- DELETE NEWS RECORD BY ID --- //
-async function deleteNewsRecordRequest(id) {
+// async function deleteNewsRecordRequest(id) {
+async function fetchNewsDeletion(id) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
   await fetch(URL, {
     method: 'DELETE',
@@ -39,5 +40,5 @@ async function deleteNewsRecordRequest(id) {
 // --- DELETE NEWS RECORD BY ID --- //
 
 export {
-  getNewsListRequest, getNewsRecordRequest, addNewsRecordRequest, deleteNewsRecordRequest,
+  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion,
 };
