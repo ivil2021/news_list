@@ -25,4 +25,7 @@ export default {
 
   // --- SET CURRENT PAGE --- //
   SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
+
+  // --- DELETE SELECTED NEWS  --- //
+  DELETE_SELECTED_NEWS: 'DELETE_SELECTED_NEWS',
 };

@@ -59,3 +59,7 @@ export function deleteNewsRecordError() {
 export function setCurrentPage(payload) {
   return { type: actionTypes.SET_CURRENT_PAGE, payload };
 }
+
+export function deleteSelectedNews() {
+  return { type: actionTypes.DELETE_SELECTED_NEWS };
+}

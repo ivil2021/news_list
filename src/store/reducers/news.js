@@ -34,7 +34,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
       };
       // --- GET NEWS LIST --- //
 
-      // --- GET NEWS RECORD BY ID --- //
+    // --- GET NEWS RECORD BY ID --- //
     case actionTypes.GET_NEWS_RECORD_REQUEST:
       return {
         ...state,
@@ -58,6 +58,13 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
       return {
         ...state,
         currentPage: action.payload,
+      };
+
+    // --- DELETE SELECTED NEWS --- //
+    case actionTypes.DELETE_SELECTED_NEWS:
+      return {
+        ...state,
+        selectedNews: {},
       };
 
     default:
