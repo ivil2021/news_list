@@ -32,7 +32,6 @@ function NewsList() {
     if (selectedNews.id) {
       dispatch(deleteSelectedNews()); // DELETE SELECTED NEWS RECORD
     }
-
     setOpen(false);
   };
 
