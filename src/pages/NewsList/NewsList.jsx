@@ -24,6 +24,13 @@ function NewsList() {
   const list = useSelector((state) => state.news.newsList);
   const currentPage = useSelector((state) => state.news.currentPage);
   const totalPages = useSelector((state) => state.news.totalPages);
+  // const totalPages = useSelector((state) => state.news.newsAmount);
+
+  const newsss = useSelector((state) => state.news);
+  console.log('22222222222222222222222222222222');
+  console.log('newsss: ', newsss);
+  // totalPages = 8;
+
   const handlePagination = (event, page) => dispatch(setCurrentPage(page));
   const handleOpen = () => setOpen(true);
   const selectedNews = useSelector((state) => state.news.selectedNews);
@@ -72,8 +79,8 @@ function NewsList() {
       <div className="news-container">
         {list.length && list.map((item) => (
           <NewsCard
-            title={item.title}
-            text={item.text}
+            title={item.news_title}
+            text={item.news_text}
             key={item.id}
             id={item.id}
             date={actualDateFormatted}

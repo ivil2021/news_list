@@ -17,11 +17,15 @@ function* getNewsListSaga() {
   try {
     const currentPage = yield select((state) => state.news.currentPage);
     const limit = yield select((state) => state.news.limit);
+    const newsAmount = yield select((state) => state.news.newsAmount);
 
     const payload = yield call(fetchNewsList, {
       page: currentPage,
       limit,
+      newsAmount,
     });
+    console.log('payload from getNewsListSaga: ', payload);
+    console.log('************************');
     yield put(getNewsSuccess(payload));
   } catch (error) {
     yield put(getNewsError());

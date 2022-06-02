@@ -22,7 +22,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
     case actionTypes.GET_NEWS_SUCCESS:
       return {
         ...state,
-        newsList: action.payload.items,
+        newsList: action.payload.requestedNews,
         newsAmount: action.payload.count,
         totalPages: Math.ceil(action.payload.count / state.limit),
       };
