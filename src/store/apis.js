@@ -1,18 +1,19 @@
-async function getNewsListRequest({ page, limit }) {
+/* eslint-disable no-undef */
+async function fetchNewsList({ page, limit }) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news?page=${page}&limit=${limit}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;
 }
 
-async function getNewsRecordRequest(id) {
+async function fetchNewsRecord(id) {
   const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;
 }
 
-async function addNewsRecordRequest(payload) {
+async function fetchNewsAdding(payload) {
   const URL = 'https://62061fb7161670001741bf36.mockapi.io/api/news';
   const response = await fetch(URL, {
     method: 'POST',
@@ -26,15 +27,18 @@ async function addNewsRecordRequest(payload) {
   return data;
 }
 
-export { getNewsListRequest, getNewsRecordRequest, addNewsRecordRequest };
+// --- DELETE NEWS RECORD BY ID --- //
+async function fetchNewsDeletion(id) {
+  const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
+  await fetch(URL, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+}
+// --- DELETE NEWS RECORD BY ID --- //
 
-// TODO: will be used for deleting news
-// function* deleteNewsRecordSaga(action) {
-//   try {
-//     yield put(deleteNewsRecordRequest(action.payload)); // post request with title, text and date
-//     yield put(deleteNewsRecordSuccess());
-//     const testPayload = yield put(getNewsListRequest);
-//   } catch (error) {
-//     yield put(deleteNewsRecordError());
-//   }
-// }
+export {
+  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion,
+};

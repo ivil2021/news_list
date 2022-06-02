@@ -1,8 +1,8 @@
 import actionTypes from '../actionTypes';
 
 // --- GET NEWS LIST --- //
-export function getNewsRequest(payload) {
-  return { type: actionTypes.GET_NEWS_REQUEST, payload };
+export function getNewsRequest() {
+  return { type: actionTypes.GET_NEWS_REQUEST };
 }
 
 export function getNewsSuccess(payload) {
@@ -42,16 +42,24 @@ export function addNewsRecordError() {
 }
 // --- ADD NEWS FROM MODAL WINDOW --- //
 
-// TODO: will be used for deleting news
-// --- delete news --- //
-// export function deleteNewsRecordRequest(payload) {
-//   return { type: actionTypes.DELETE_NEWS_RECORD_REQUEST, payload };
-// }
+// --- DELETE NEWS RECORD BY ID --- //
+export function deleteNewsRecordRequest(payload) {
+  return { type: actionTypes.DELETE_NEWS_RECORD_REQUEST, payload };
+}
 
-// export function deleteNewsRecordSuccess(payload) {
-//   return { type: actionTypes.DELETE_NEWS_RECORD_SUCCESS, payload };
-// }
+export function deleteNewsRecordSuccess(payload) {
+  return { type: actionTypes.DELETE_NEWS_RECORD_SUCCESS, payload };
+}
 
-// export function deleteNewsRecordError() {
-//   return { type: actionTypes.DELETE_NEWS_RECORD_ERROR };
-// }
+export function deleteNewsRecordError() {
+  return { type: actionTypes.DELETE_NEWS_RECORD_ERROR };
+}
+// --- DELETE NEWS RECORD BY ID --- //
+
+export function setCurrentPage(payload) {
+  return { type: actionTypes.SET_CURRENT_PAGE, payload };
+}
+
+export function deleteSelectedNews() {
+  return { type: actionTypes.DELETE_SELECTED_NEWS };
+}

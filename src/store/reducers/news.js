@@ -5,6 +5,9 @@ const INITIAL_STATE = {
   isLoading: false,
   newsAmount: 0,
   selectedNews: {},
+  limit: 2,
+  totalPages: 1,
+  currentPage: 1,
 };
 
 const newsReducer = (state = INITIAL_STATE, action = {}) => {
@@ -21,6 +24,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         newsList: action.payload.items,
         newsAmount: action.payload.count,
+        totalPages: Math.ceil(action.payload.count / state.limit),
       };
 
     case actionTypes.GET_NEWS_ERROR:
@@ -30,7 +34,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
       };
       // --- GET NEWS LIST --- //
 
-      // --- GET NEWS RECORD BY ID --- //
+    // --- GET NEWS RECORD BY ID --- //
     case actionTypes.GET_NEWS_RECORD_REQUEST:
       return {
         ...state,
@@ -49,6 +53,19 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         isLoading: false,
       };
       // --- GET NEWS RECORD BY ID --- //
+
+    case actionTypes.SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
+
+    // --- DELETE SELECTED NEWS --- //
+    case actionTypes.DELETE_SELECTED_NEWS:
+      return {
+        ...state,
+        selectedNews: {},
+      };
 
     default:
       return state;

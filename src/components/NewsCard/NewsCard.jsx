@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -8,11 +8,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 
 import './newsCard.css';
-import { getNewsRecordRequest } from '../../store/actions';
+import { deleteNewsRecordRequest } from '../../store/actions';
 
 const useStyles = makeStyles({
   root: {
@@ -25,31 +24,20 @@ const useStyles = makeStyles({
 });
 
 function NewsCard({
-  title, text, date, id,
+  title, text, date, id, onClick,
 }) {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-
-  // TODO: will be used for modal window
-  // const handleOpen = () => {
-  //   setOpen(true);
-  // };
-
-  const handleClose = () => {
-    setOpen(false);
+  // --- DELETE NEWS RECORD BY ID --- //
+  const handleDelete = () => {
+    dispatch(deleteNewsRecordRequest({ id }));
   };
-
-  const dispatch = useDispatch();
-
-  const handleOpen = () => {
-    dispatch(getNewsRecordRequest(id));
-  };
+  // --- DELETE NEWS RECORD BY ID --- //
 
   return (
     <Card className={classes.root}>
       <CardContent>
-
         <div className="card-header">
           <Typography variant="h5" component="h2">
             {title}
@@ -60,54 +48,22 @@ function NewsCard({
             color="secondary"
             className={classes.button}
             startIcon={<DeleteIcon />}
+            onClick={handleDelete}
           >
             Delete
           </Button>
         </div>
-
         <br />
-
         <Typography variant="body2" component="p">
           {text.substring(0, 200)}
         </Typography>
       </CardContent>
-
       <div className="card-footer">
         <CardActions>
-          <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Read more…</Button>
+          <Button size="small" variant="contained" color="primary" onClick={() => onClick(id)}>Read more…</Button>
         </CardActions>
         <div>{date}</div>
       </div>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <div className="card-modal-window">
-          <div className="card-modal-container">
-
-            <div className="card-modal-header">
-              <h4>{title}</h4>
-              <CardActions>
-                <Button size="small" variant="contained" color="primary" onClick={handleClose}>Close</Button>
-              </CardActions>
-            </div>
-
-            <div className="card-modal-content">
-              <p>{text}</p>
-            </div>
-
-            <div className="card-modal-footer">
-              <div>{date}</div>
-            </div>
-
-          </div>
-
-          <div className="news-text" />
-        </div>
-      </Modal>
     </Card>
   );
 }
@@ -115,15 +71,9 @@ function NewsCard({
 export default NewsCard;
 
 NewsCard.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  date: PropTypes.string,
-  id: PropTypes.string,
-};
-
-NewsCard.defaultProps = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  date: PropTypes.string,
-  id: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
