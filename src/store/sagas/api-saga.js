@@ -3,7 +3,7 @@ import {
 } from 'redux-saga/effects';
 
 import {
-  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion,
+  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion, fetchNewsUpdating,
 } from '../apis';
 import {
   getNewsSuccess, getNewsError,
@@ -11,6 +11,7 @@ import {
   addNewsRecordSuccess, addNewsRecordError,
   deleteNewsRecordSuccess, deleteNewsRecordError,
   getNewsRequest, setCurrentPage,
+  updateNewsRecordSuccess, updateNewsRecordError,
 } from '../actions';
 
 function* getNewsListSaga() {
@@ -24,8 +25,6 @@ function* getNewsListSaga() {
       limit,
       newsAmount,
     });
-    console.log('payload from getNewsListSaga: ', payload);
-    console.log('************************');
     yield put(getNewsSuccess(payload));
   } catch (error) {
     yield put(getNewsError());
@@ -76,9 +75,20 @@ function* deleteNewsRecordSaga(action) {
   }
 }
 
+function* updateNewsRecordSaga(action) {
+  try {
+    yield call(fetchNewsUpdating, action.payload);
+    yield put(updateNewsRecordSuccess());
+    yield put(getNewsRequest());
+  } catch (error) {
+    yield put(updateNewsRecordError());
+  }
+}
+
 export default function* watcherSaga() {
   yield takeLatest('GET_NEWS_REQUEST', getNewsListSaga);
   yield takeLatest('GET_NEWS_RECORD_REQUEST', getNewsRecordSaga);
   yield takeLatest('ADD_NEWS_RECORD_REQUEST', addNewsRecordSaga);
   yield takeLatest('DELETE_NEWS_RECORD_REQUEST', deleteNewsRecordSaga);
+  yield takeLatest('UPDATE_NEWS_RECORD_REQUEST', updateNewsRecordSaga);
 }

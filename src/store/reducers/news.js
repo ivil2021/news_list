@@ -4,7 +4,11 @@ const INITIAL_STATE = {
   newsList: [],
   isLoading: false,
   newsAmount: 0,
-  selectedNews: {},
+  selectedNews: {
+    news_title: '',
+    news_text: '',
+    createdAt: null,
+  },
   limit: 2,
   totalPages: 1,
   currentPage: 1,

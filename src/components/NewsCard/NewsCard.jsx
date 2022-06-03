@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as moment from 'moment';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -11,7 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import './newsCard.css';
-import { deleteNewsRecordRequest } from '../../store/actions';
+// eslint-disable-next-line no-unused-vars
+import { deleteNewsRecordRequest, updateNewsRecordRequest, getNewsRecordRequest } from '../../store/actions';
 
 const useStyles = makeStyles({
   root: {
@@ -24,8 +26,10 @@ const useStyles = makeStyles({
 });
 
 function NewsCard({
-  title, text, date, id, onClick,
+  title, text, date, id, showNewsDetails, handleEditClick,
 }) {
+  const actualDateFormatted = moment(date).locale('ru').format('DD.MM.YYYY');
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -33,7 +37,20 @@ function NewsCard({
   const handleDelete = () => {
     dispatch(deleteNewsRecordRequest({ id }));
   };
+
+  const handleEdit = () => {
+    dispatch(getNewsRecordRequest(id));
+    handleEditClick();
+  };
   // --- DELETE NEWS RECORD BY ID --- //
+
+  // --- EDIT NEWS RECORD --- //
+  // const handleEdit = () => {
+  //   console.log('edit');
+  //   console.log('id: ', id);
+  //   // dispatch(updateNewsRecordRequest({ id }));
+  // };
+  // --- EDIT NEWS RECORD --- //
 
   return (
     <Card className={classes.root}>
@@ -52,6 +69,14 @@ function NewsCard({
           >
             Delete
           </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => handleEdit()}
+          >
+            Edit
+          </Button>
         </div>
         <br />
         <Typography variant="body2" component="p">
@@ -60,9 +85,9 @@ function NewsCard({
       </CardContent>
       <div className="card-footer">
         <CardActions>
-          <Button size="small" variant="contained" color="primary" onClick={() => onClick(id)}>Read more…</Button>
+          <Button size="small" variant="contained" color="primary" onClick={() => showNewsDetails(id)}>Read more…</Button>
         </CardActions>
-        <div>{date}</div>
+        <div>{actualDateFormatted}</div>
       </div>
     </Card>
   );
@@ -75,5 +100,7 @@ NewsCard.propTypes = {
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
+  showNewsDetails: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
+
 };
