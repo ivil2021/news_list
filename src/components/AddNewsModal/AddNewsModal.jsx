@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import TextField from '@mui/material/TextField';
 import {
@@ -31,7 +31,6 @@ function AddNewsModal({
         news_text: newsText,
         id: selectedNews.id,
       }));
-      // call update action
     } else {
       dispatch(addNewsRecordRequest({
         news_title: newsTitle,
@@ -41,19 +40,13 @@ function AddNewsModal({
     onClose();
   };
 
-  // console.log(newsTitle);
-
   useEffect(() => {
-    // console.log('=================');
     setNewsTitle(selectedNews.news_title || '');
     setNewsText(selectedNews.news_text || '');
   }, [selectedNews.news_title, selectedNews.news_text]);
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-    >
+    <Modal open={open} onClose={onClose}>
       <div className="modal-window">
         <div className="modal-container">
           <div className="modal-header">
@@ -69,7 +62,6 @@ function AddNewsModal({
               <Button size="small" variant="contained" color="primary" disabled={isSaveButtonDisabled} onClick={handleClick}>Save</Button>
             </CardActions>
           </div>
-
         </div>
       </div>
     </Modal>
@@ -77,3 +69,8 @@ function AddNewsModal({
 }
 
 export default AddNewsModal;
+
+AddNewsModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

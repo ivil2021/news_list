@@ -3,22 +3,21 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, CardActions } from '@material-ui/core';
-// import Button from '@material-ui/core/Button';
-// import CardActions from '@material-ui/core/CardActions';
 import Pagination from '@material-ui/lab/Pagination';
 
 import NewsCard from '../../components/NewsCard';
 import {
-  // eslint-disable-next-line no-unused-vars
-  getNewsRequest, setCurrentPage, getNewsRecordRequest, deleteSelectedNews,
+  getNewsRequest, setCurrentPage, deleteSelectedNews,
 } from '../../store/actions';
 import './newsList.css';
 import AddNewsModal from '../../components/AddNewsModal';
+import ReadMoreModal from '../../components/ReadMoreModal';
 
 function NewsList() {
   const dispatch = useDispatch();
   const [addNewsModalState, setAddNewsModalState] = useState(false);
-  // const totalPages = useSelector((state) => state.news.newsAmount);
+  const [readMoreModalState, setReadMoreModalState] = useState(false);
+
   const list = useSelector((state) => state.news.newsList);
   const currentPage = useSelector((state) => state.news.currentPage);
   const totalPages = useSelector((state) => state.news.totalPages);
@@ -38,13 +37,12 @@ function NewsList() {
     setAddNewsModalState(false);
   };
 
-  // const getNewsRecord = (id) => {
-  //   dispatch(getNewsRecordRequest(id));
-  //   handleOpen(true);
-  // };
-
-  // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
-  // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
+  const handleCloseReadMoreModal = () => {
+    if (selectedNews.id) {
+      dispatch(deleteSelectedNews()); // DELETE SELECTED NEWS RECORD
+    }
+    setReadMoreModalState(false);
+  };
 
   return (
     <div>
@@ -61,6 +59,7 @@ function NewsList() {
             date={item.createdAt}
             showNewsDetails={() => {}}
             handleEditClick={() => setAddNewsModalState(true)}
+            handleReadMoreClick={() => setReadMoreModalState(true)}
           />
         ))}
       </div>
@@ -75,6 +74,11 @@ function NewsList() {
       <AddNewsModal
         open={addNewsModalState}
         onClose={handleClose}
+        selectedNews={selectedNews}
+      />
+      <ReadMoreModal
+        open={readMoreModalState}
+        onClose={handleCloseReadMoreModal}
         selectedNews={selectedNews}
       />
       {/* <Modal
@@ -125,3 +129,11 @@ function NewsList() {
 }
 
 export default NewsList;
+
+// const getNewsRecord = (id) => {
+//   dispatch(getNewsRecordRequest(id));
+//   handleOpen(true);
+// };
+
+// --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
+// --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
