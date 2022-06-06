@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import * as moment from 'moment';
 
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
+import { Button, CardActions } from '@material-ui/core';
+// import Button from '@material-ui/core/Button';
+// import CardActions from '@material-ui/core/CardActions';
 import Pagination from '@material-ui/lab/Pagination';
 
 import NewsCard from '../../components/NewsCard';
@@ -14,20 +14,22 @@ import {
 } from '../../store/actions';
 import './newsList.css';
 import AddNewsModal from '../../components/AddNewsModal';
-// const actualDate = new Date();
 
 function NewsList() {
   const dispatch = useDispatch();
   const [addNewsModalState, setAddNewsModalState] = useState(false);
-  // const actualDateFormatted = moment(actualDate).locale('ru').format('DD.MM.YYYY');
   // const totalPages = useSelector((state) => state.news.newsAmount);
   const list = useSelector((state) => state.news.newsList);
   const currentPage = useSelector((state) => state.news.currentPage);
   const totalPages = useSelector((state) => state.news.totalPages);
+  const selectedNews = useSelector((state) => state.news.selectedNews);
+
+  useEffect(() => {
+    dispatch(getNewsRequest());
+  }, [currentPage]);
 
   const handlePagination = (event, page) => dispatch(setCurrentPage(page));
   const handleOpen = () => setAddNewsModalState(true);
-  const selectedNews = useSelector((state) => state.news.selectedNews);
 
   const handleClose = () => {
     if (selectedNews.id) {
@@ -36,18 +38,10 @@ function NewsList() {
     setAddNewsModalState(false);
   };
 
-  useEffect(() => {
-    dispatch(getNewsRequest());
-  }, [currentPage]);
-
-  // --- ADD NEWS FROM MODAL WINDOW --- //
-
   // const getNewsRecord = (id) => {
   //   dispatch(getNewsRecordRequest(id));
   //   handleOpen(true);
   // };
-
-  // --- ADD NEWS FROM MODAL WINDOW --- //
 
   // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
   // --- INPUTS VALIDATION. SAVE BUTTON DISABLING --- //
@@ -67,7 +61,6 @@ function NewsList() {
             date={item.createdAt}
             showNewsDetails={() => {}}
             handleEditClick={() => setAddNewsModalState(true)}
-
           />
         ))}
       </div>
@@ -123,7 +116,6 @@ function NewsList() {
                   <Button size="small" variant="contained" color="primary" onClick={handleSave} disabled={isSaveButtonDisabled}>Save</Button>
                 </CardActions>
               </div>
-
             </div>
           </div>
         )}

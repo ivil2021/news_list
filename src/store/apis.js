@@ -48,7 +48,7 @@ async function fetchNewsDeletion(id) {
 
 // --- UPDATING NEWS --- //
 async function fetchNewsUpdating(payload) {
-  const URL = `http://localhost:3000/news${id}`;
+  const URL = `http://localhost:3000/news/${payload.id}`;
   const response = await fetch(URL, {
     method: 'PUT',
     headers: {
@@ -63,7 +63,11 @@ async function fetchNewsUpdating(payload) {
 // --- UPDATING NEWS --- //
 
 export {
-  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion, fetchNewsUpdating,
+  fetchNewsList,
+  fetchNewsRecord,
+  fetchNewsAdding,
+  fetchNewsDeletion,
+  fetchNewsUpdating,
 };
 
 // fetchNewsUpdating

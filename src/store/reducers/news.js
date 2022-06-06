@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     news_title: '',
     news_text: '',
     createdAt: null,
+    id: null,
   },
   limit: 2,
   totalPages: 1,
@@ -68,8 +69,28 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
     case actionTypes.DELETE_SELECTED_NEWS:
       return {
         ...state,
-        selectedNews: {},
+        selectedNews: INITIAL_STATE.selectedNews,
       };
+
+    // --- UPDATE ONE NEWS --- //
+    case actionTypes.UPDATE_NEWS_RECORD_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.UPDATE_NEWS_RECORD_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case actionTypes.UPDATE_NEWS_RECORD_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+      };
+      // --- UPDATE ONE NEWS --- //
 
     default:
       return state;

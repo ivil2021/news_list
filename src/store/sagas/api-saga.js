@@ -1,17 +1,25 @@
-import {
-  takeLatest, call, put, select,
-} from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 
 import {
-  fetchNewsList, fetchNewsRecord, fetchNewsAdding, fetchNewsDeletion, fetchNewsUpdating,
+  fetchNewsList,
+  fetchNewsRecord,
+  fetchNewsAdding,
+  fetchNewsDeletion,
+  fetchNewsUpdating,
 } from '../apis';
 import {
-  getNewsSuccess, getNewsError,
-  getNewsRecordSuccess, getNewsRecordError,
-  addNewsRecordSuccess, addNewsRecordError,
-  deleteNewsRecordSuccess, deleteNewsRecordError,
-  getNewsRequest, setCurrentPage,
-  updateNewsRecordSuccess, updateNewsRecordError,
+  getNewsSuccess,
+  getNewsError,
+  getNewsRecordSuccess,
+  getNewsRecordError,
+  addNewsRecordSuccess,
+  addNewsRecordError,
+  deleteNewsRecordSuccess,
+  deleteNewsRecordError,
+  getNewsRequest,
+  setCurrentPage,
+  updateNewsRecordSuccess,
+  updateNewsRecordError,
 } from '../actions';
 
 function* getNewsListSaga() {
@@ -77,10 +85,15 @@ function* deleteNewsRecordSaga(action) {
 
 function* updateNewsRecordSaga(action) {
   try {
+    console.log('=================start');
     yield call(fetchNewsUpdating, action.payload);
+    console.log('=================fetchNewsUpdating after');
+
     yield put(updateNewsRecordSuccess());
     yield put(getNewsRequest());
   } catch (error) {
+    console.log('=================ferror', error);
+
     yield put(updateNewsRecordError());
   }
 }
