@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // --- GETTING NEWS LIST --- //
-async function fetchNewsList({ page, limit }) {
-  const URL = `http://localhost:3000/news/find-by-title?page=${page}&limit=${limit}`;
+async function fetchNewsList({ page, limit, title }) {
+  const URL = `http://localhost:3000/news/find-by-title?page=${page}&limit=${limit}&title=${title}`;
   const response = await fetch(URL);
   const data = await response.json();
   return data;

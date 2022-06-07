@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, CardActions } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import TextField from '@mui/material/TextField';
 
 import NewsCard from '../../components/NewsCard';
 import {
@@ -13,18 +14,22 @@ import './newsList.css';
 import AddNewsModal from '../../components/AddNewsModal';
 import ReadMoreModal from '../../components/ReadMoreModal';
 
+// import { deleteNewsRecordRequest, getNewsRecordRequest } from '../../store/actions';
+
 function NewsList() {
   const dispatch = useDispatch();
   const [addNewsModalState, setAddNewsModalState] = useState(false);
   const [readMoreModalState, setReadMoreModalState] = useState(false);
+  const [newsTitleFilter, setNewsTitleFilter] = useState('');
 
   const list = useSelector((state) => state.news.newsList);
   const currentPage = useSelector((state) => state.news.currentPage);
   const totalPages = useSelector((state) => state.news.totalPages);
   const selectedNews = useSelector((state) => state.news.selectedNews);
+  const handleFilter = (event) => setNewsTitleFilter(event.target.value);
 
   useEffect(() => {
-    dispatch(getNewsRequest());
+    dispatch(getNewsRequest({ title: newsTitleFilter }));
   }, [currentPage]);
 
   const handlePagination = (event, page) => dispatch(setCurrentPage(page));
@@ -39,15 +44,27 @@ function NewsList() {
 
   const handleCloseReadMoreModal = () => {
     if (selectedNews.id) {
-      dispatch(deleteSelectedNews()); // DELETE SELECTED NEWS RECORD
+      dispatch(deleteSelectedNews());
     }
     setReadMoreModalState(false);
+  };
+
+  
+
+  const handleFilterClick = () => {
+    dispatch(getNewsRequest({ title: newsTitleFilter }));
+    // console.log('filterclick');
+    // console.log('newsTitleFilter: ', newsTitleFilter);
+    // set newsTitleFilter to '' and use it as input.value of our input
+    // setNewsTitleFilter('');
   };
 
   return (
     <div>
       <CardActions>
         <Button size="small" variant="contained" color="primary" onClick={handleOpen}>Add news</Button>
+        <TextField id="outlined-basic" value={newsTitleFilter} label="Enter something" variant="outlined" onChange={handleFilter} />
+        <Button size="small" variant="contained" color="primary" onClick={handleFilterClick}>Filter</Button>
       </CardActions>
       <div className="news-container">
         {list.length && list.map((item) => (

@@ -14,7 +14,7 @@ import { deleteNewsRecordRequest, getNewsRecordRequest } from '../../store/actio
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200,
+    minWidth: 300,
     maxWidth: 400,
     margin: 10,
     borderRadius: 20,
@@ -48,31 +48,51 @@ function NewsCard({
     <Card className={classes.root}>
       <CardContent>
         <div className="card-header">
-          <Typography variant="h5" component="h2">{title}</Typography>
+          <div className="header-title">
+            <Typography variant="h5" component="h2">{title}</Typography>
+          </div>
           <br />
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            startIcon={<DeleteIcon />}
-            onClick={handleDelete}
-          >
-            Delete
-          </Button>
-          <Button variant="contained" color="primary" className={classes.button} onClick={() => handleEdit()}>
-            Edit
-          </Button>
+          <div className="header-buttons">
+            {/* <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button> */}
+            {/* <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={() => handleEdit()}
+            >
+              Edit
+            </Button> */}
+          </div>
         </div>
         <br />
         <Typography variant="body2" component="p">{text.substring(0, 200)}</Typography>
+        <br />
+        <div className="date">{actualDateFormatted}</div>
       </CardContent>
       <div className="card-footer">
         <CardActions>
-          {/* <Button size="small" variant="contained"
-          color="primary" onClick={() => showNewsDetails(id)}>Read more…</Button> */}
-          <Button size="small" variant="contained" color="primary" onClick={handleReadMore}>Read more…</Button>
+          <div className="footer-buttons">
+            <Button size="small" variant="contained" color="primary" onClick={handleReadMore}>Read more…</Button>
+            <Button variant="contained" color="primary" className={classes.button} onClick={() => handleEdit()}>Edit</Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </div>
         </CardActions>
-        <div>{actualDateFormatted}</div>
       </div>
     </Card>
   );

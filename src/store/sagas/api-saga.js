@@ -22,8 +22,9 @@ import {
   updateNewsRecordError,
 } from '../actions';
 
-function* getNewsListSaga() {
+function* getNewsListSaga(action) {
   try {
+    console.log('====error', action.payload);
     const currentPage = yield select((state) => state.news.currentPage);
     const limit = yield select((state) => state.news.limit);
     const newsAmount = yield select((state) => state.news.newsAmount);
@@ -32,18 +33,24 @@ function* getNewsListSaga() {
       page: currentPage,
       limit,
       newsAmount,
+      title: action.payload?.title || '',
     });
+    console.log('====getNewsSuccess', payload);
+
     yield put(getNewsSuccess(payload));
   } catch (error) {
+    console.log('====error', error);
     yield put(getNewsError());
   }
 }
 
 function* getNewsRecordSaga(action) {
+  // console.log('action: ', action);
   try {
     const payload = yield call(fetchNewsRecord, action.payload);
     yield put(getNewsRecordSuccess(payload));
   } catch (error) {
+    // console.log('error from get news record api-saga: ', error);
     yield put(getNewsRecordError());
   }
 }

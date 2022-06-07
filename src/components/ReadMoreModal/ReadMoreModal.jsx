@@ -12,17 +12,7 @@ function ReadMoreModal({
   onClose,
 }) {
   const selectedNews = useSelector((state) => state.news.selectedNews);
-
-  // console.log('selectedNews: ', selectedNews);
-  // console.log('selectedNews.id: ', selectedNews.id);
-  // console.log('selectedNews.news_title: ', selectedNews.news_title);
-  // console.log('selectedNews.news_text: ', selectedNews.news_text);
-  // console.log('selectedNews.createdAt: ', selectedNews.createdAt);
-
   const actualDateFormatted = moment(selectedNews.createdAt).locale('ru').format('DD.MM.YYYY');
-  // console.log('actualDateFormatted: ', actualDateFormatted);
-
-  // selectedNews.news_title
 
   const handleClick = () => {
     onClose();
