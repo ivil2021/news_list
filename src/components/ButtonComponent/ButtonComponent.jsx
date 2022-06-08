@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '@material-ui/core/Button';
 
-// eslint-disable-next-line react/prop-types
 function ButtonComponent({ text }) {
   return (
     <div>
@@ -13,3 +14,7 @@ function ButtonComponent({ text }) {
 }
 
 export default ButtonComponent;
+
+ButtonComponent.propTypes = {
+  text: PropTypes.string.isRequired,
+};

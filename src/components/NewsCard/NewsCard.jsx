@@ -1,21 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as moment from 'moment';
 
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import DeleteIcon from '@material-ui/icons/Delete';
+import {
+  Button, Card, CardActions, CardContent, Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import './newsCard.css';
-import { deleteNewsRecordRequest } from '../../store/actions';
+import { deleteNewsRecordRequest, getNewsRecordRequest } from '../../store/actions';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200,
+    minWidth: 300,
     maxWidth: 400,
     margin: 10,
     borderRadius: 20,
@@ -24,45 +23,76 @@ const useStyles = makeStyles({
 });
 
 function NewsCard({
-  title, text, date, id, onClick,
+  title, text, date, id, showNewsDetails, handleEditClick, handleReadMoreClick,
 }) {
+  const actualDateFormatted = moment(date).locale('ru').format('DD.MM.YYYY');
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  // --- DELETE NEWS RECORD BY ID --- //
   const handleDelete = () => {
     dispatch(deleteNewsRecordRequest({ id }));
   };
-  // --- DELETE NEWS RECORD BY ID --- //
+
+  const handleEdit = () => {
+    dispatch(getNewsRecordRequest(id));
+    handleEditClick();
+  };
+
+  const handleReadMore = () => {
+    showNewsDetails(id);
+    handleReadMoreClick();
+    dispatch(getNewsRecordRequest(id));
+  };
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <div className="card-header">
-          <Typography variant="h5" component="h2">
-            {title}
-          </Typography>
+          <div className="header-title">
+            <Typography variant="h5" component="h2">{title}</Typography>
+          </div>
           <br />
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            startIcon={<DeleteIcon />}
-            onClick={handleDelete}
-          >
-            Delete
-          </Button>
+          <div className="header-buttons">
+            {/* <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button> */}
+            {/* <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={() => handleEdit()}
+            >
+              Edit
+            </Button> */}
+          </div>
         </div>
         <br />
-        <Typography variant="body2" component="p">
-          {text.substring(0, 200)}
-        </Typography>
+        <Typography variant="body2" component="p">{text.substring(0, 200)}</Typography>
+        <br />
+        <div className="date">{actualDateFormatted}</div>
       </CardContent>
       <div className="card-footer">
         <CardActions>
-          <Button size="small" variant="contained" color="primary" onClick={() => onClick(id)}>Read more…</Button>
+          <div className="footer-buttons">
+            <Button size="small" variant="contained" color="primary" onClick={handleReadMore}>Read more…</Button>
+            <Button variant="contained" color="primary" className={classes.button} onClick={() => handleEdit()}>Edit</Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<DeleteIcon />}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+          </div>
         </CardActions>
-        <div>{date}</div>
       </div>
     </Card>
   );
@@ -74,6 +104,8 @@ NewsCard.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  showNewsDetails: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
+  handleReadMoreClick: PropTypes.func.isRequired,
 };

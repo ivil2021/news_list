@@ -1,8 +1,8 @@
 import actionTypes from '../actionTypes';
 
 // --- GET NEWS LIST --- //
-export function getNewsRequest() {
-  return { type: actionTypes.GET_NEWS_REQUEST };
+export function getNewsRequest(payload) {
+  return { type: actionTypes.GET_NEWS_REQUEST, payload };
 }
 
 export function getNewsSuccess(payload) {
@@ -56,10 +56,28 @@ export function deleteNewsRecordError() {
 }
 // --- DELETE NEWS RECORD BY ID --- //
 
+// --- SET CURRENT PAGE --- //
 export function setCurrentPage(payload) {
   return { type: actionTypes.SET_CURRENT_PAGE, payload };
 }
+// --- SET CURRENT PAGE --- //
 
+// --- DELETE SELECTED NEWS --- //
 export function deleteSelectedNews() {
   return { type: actionTypes.DELETE_SELECTED_NEWS };
 }
+// --- DELETE SELECTED NEWS --- //
+
+// --- UPDATE ONE NEWS --- //
+export function updateNewsRecordRequest(payload) {
+  return { type: actionTypes.UPDATE_NEWS_RECORD_REQUEST, payload };
+}
+
+export function updateNewsRecordSuccess(payload) {
+  return { type: actionTypes.UPDATE_NEWS_RECORD_SUCCESS, payload };
+}
+
+export function updateNewsRecordError() {
+  return { type: actionTypes.UPDATE_NEWS_RECORD_ERROR };
+}
+// --- UPDATE ONE NEWS --- //

@@ -1,42 +1,50 @@
 .card-modal-window {
-    background: lightgreen;
-    width: 500px;
-    height: auto;
-    border-radius: 20px;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -250px;
-    margin-top: -150px;
+  background: lightgreen;
+  width: 500px;
+  height: auto;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -250px;
+  margin-top: -150px;
 }
 
 .card-modal-container {
-    padding: 20px;
+  padding: 20px;
 }
 
 .card-modal-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .card-modal-footer {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .card-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .card-footer {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .news-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  text-align: right;
 }
