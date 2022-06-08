@@ -1,4 +1,6 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import {
+  takeLatest, call, put, select,
+} from 'redux-saga/effects';
 
 import {
   fetchNewsList,
@@ -24,7 +26,6 @@ import {
 
 function* getNewsListSaga(action) {
   try {
-    console.log('====error', action.payload);
     const currentPage = yield select((state) => state.news.currentPage);
     const limit = yield select((state) => state.news.limit);
     const newsAmount = yield select((state) => state.news.newsAmount);
@@ -33,24 +34,20 @@ function* getNewsListSaga(action) {
       page: currentPage,
       limit,
       newsAmount,
-      title: action.payload?.title || '',
+      title: action.payload.title || '',
     });
-    console.log('====getNewsSuccess', payload);
 
     yield put(getNewsSuccess(payload));
   } catch (error) {
-    console.log('====error', error);
     yield put(getNewsError());
   }
 }
 
 function* getNewsRecordSaga(action) {
-  // console.log('action: ', action);
   try {
     const payload = yield call(fetchNewsRecord, action.payload);
     yield put(getNewsRecordSuccess(payload));
   } catch (error) {
-    // console.log('error from get news record api-saga: ', error);
     yield put(getNewsRecordError());
   }
 }
@@ -67,16 +64,16 @@ function* addNewsRecordSaga(action) {
 
 function* deleteNewsRecordSaga(action) {
   try {
-    // get amount of news on the current page from redux store
+    // get the amount of news on the current page from the redux store
     const newsList = yield select((state) => state.news.newsList);
-    // get total amount of news from redux store
+    // get the total amount of news from the redux store
     const totalPages = yield select((state) => state.news.totalPages);
 
     // fetch to delete news record to server
     yield call(fetchNewsDeletion, action.payload.id);
 
     // if it was the last news record on the actual page,
-    // we move to the previous page
+    // move to the previous page
     if (newsList.length === 1) {
       yield put(setCurrentPage(totalPages - 1));
     }
@@ -92,15 +89,10 @@ function* deleteNewsRecordSaga(action) {
 
 function* updateNewsRecordSaga(action) {
   try {
-    console.log('=================start');
     yield call(fetchNewsUpdating, action.payload);
-    console.log('=================fetchNewsUpdating after');
-
     yield put(updateNewsRecordSuccess());
     yield put(getNewsRequest());
   } catch (error) {
-    console.log('=================ferror', error);
-
     yield put(updateNewsRecordError());
   }
 }

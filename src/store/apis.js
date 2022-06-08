@@ -10,7 +10,6 @@ async function fetchNewsList({ page, limit, title }) {
 
 // --- GETTING NEWS RECORD --- //
 async function fetchNewsRecord(id) {
-  // const URL = `https://62061fb7161670001741bf36.mockapi.io/api/news/${id}`;
   const URL = `http://localhost:3000/news/${id}`;
   const response = await fetch(URL);
   const data = await response.json();
@@ -69,5 +68,3 @@ export {
   fetchNewsDeletion,
   fetchNewsUpdating,
 };
-
-// fetchNewsUpdating

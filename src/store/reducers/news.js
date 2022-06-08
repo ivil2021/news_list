@@ -59,11 +59,13 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
       };
       // --- GET NEWS RECORD BY ID --- //
 
+    // --- SET CURRENT PAGE --- //
     case actionTypes.SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: action.payload,
       };
+      // --- SET CURRENT PAGE --- //
 
     // --- DELETE SELECTED NEWS --- //
     case actionTypes.DELETE_SELECTED_NEWS:
@@ -71,6 +73,7 @@ const newsReducer = (state = INITIAL_STATE, action = {}) => {
         ...state,
         selectedNews: INITIAL_STATE.selectedNews,
       };
+      // --- DELETE SELECTED NEWS --- //
 
     // --- UPDATE ONE NEWS --- //
     case actionTypes.UPDATE_NEWS_RECORD_REQUEST:

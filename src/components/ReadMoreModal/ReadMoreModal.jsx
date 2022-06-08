@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import * as moment from 'moment';
+import PropTypes from 'prop-types';
 
 import {
   Modal, CardActions, Button,
@@ -14,9 +14,7 @@ function ReadMoreModal({
   const selectedNews = useSelector((state) => state.news.selectedNews);
   const actualDateFormatted = moment(selectedNews.createdAt).locale('ru').format('DD.MM.YYYY');
 
-  const handleClick = () => {
-    onClose();
-  };
+  const handleClick = () => onClose();
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -42,3 +40,8 @@ function ReadMoreModal({
 }
 
 export default ReadMoreModal;
+
+ReadMoreModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
